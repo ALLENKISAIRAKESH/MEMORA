@@ -1,0 +1,23 @@
+{
+  "project": "Memora",
+  "purpose": "Antigravity build package",
+  "primary_docs": [
+    "PRD.md",
+    "prompts/MASTER-ANTIGRAVITY-PROMPT.md"
+  ],
+  "source_documents": [
+    "Hackathon Content Guide.docx",
+    "HackwithHyderabad 3.0 Problem Statament.docx"
+  ],
+  "stack": [
+    "React",
+    "TypeScript",
+    "Vite",
+    "Tailwind CSS",
+    "Node.js",
+    "Express",
+    "Supabase PostgreSQL",
+    "Hindsight"
+  ],
+  "mvp": "Memory-powered incident response agent"
+}

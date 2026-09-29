@@ -1,0 +1,29 @@
+{
+  "name": "memora",
+  "version": "1.0.0",
+  "description": "Memora — Infrastructure that remembers. Memory-powered incident response agent for DevOps/SRE teams.",
+  "scripts": {
+    "dev": "concurrently -n \"API,WEB\" -c \"blue,green\" \"npm run dev --prefix server\" \"npm run dev --prefix client\"",
+    "dev:server": "npm run dev --prefix server",
+    "dev:client": "npm run dev --prefix client",
+    "build:server": "npm run build --prefix server",
+    "build:client": "npm run build --prefix client",
+    "build": "npm run build --prefix server && npm run build --prefix client",
+    "test": "npm run test --prefix server",
+    "typecheck": "npm run typecheck --prefix server && npm run build --prefix client"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  },
+  "keywords": [
+    "memora",
+    "hindsight",
+    "incident-response",
+    "sre",
+    "devops",
+    "ai-agent",
+    "agent-memory"
+  ],
+  "author": "Memora Team",
+  "license": "MIT"
+}
