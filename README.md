@@ -87,7 +87,7 @@ WEB_URL=http://localhost:5173
 ### 3. Repository Structure
 ```
 memora/
-├── frontend/               # React 19 + TypeScript + Vite + Tailwind CSS
+├── frontend/               # React 19 + TypeScript + Vite + Tailwind CSS UI
 │   ├── src/
 │   │   ├── components/     # Navbar, Layout, Badges
 │   │   ├── pages/          # Dashboard, Incidents, Workspace, Memory
@@ -96,6 +96,10 @@ memora/
 │   ├── vite.config.ts
 │   └── package.json
 ├── backend/                # Node.js + Express + TypeScript API Server
+│   ├── contracts/          # Hindsight memory & agent reasoning contracts
+│   ├── database/           # PostgreSQL schema & seed files
+│   ├── docs/               # Architecture, demo guides, and article
+│   ├── prompts/            # Agent prompts & build sequence
 │   ├── src/
 │   │   ├── config/         # Environment loader with Zod validation
 │   │   ├── db/             # Supabase client + seeded database store
@@ -105,11 +109,12 @@ memora/
 │   │   └── tests/          # Automated test suites (6/6 passing)
 │   ├── tsconfig.json
 │   └── package.json
-├── database/               # SQL schema and seed files
-├── docs/                   # Architecture, Demo guides, and visual assets
-├── article.md              # Technical deep-dive article
+├── .env.example            # Environment variables template
+├── .gitignore
 ├── docker-compose.yml      # Container orchestration
-└── Dockerfile              # Multi-stage production build
+├── Dockerfile              # Multi-stage production build
+├── package.json            # Root scripts (npm run dev, npm test, npm run build)
+└── README.md
 ```
 
 ### 4. Install Dependencies
