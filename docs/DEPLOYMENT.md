@@ -84,12 +84,12 @@ npm run build
 
 ### Start API in production:
 ```bash
-cd server
+cd backend
 NODE_ENV=production node dist/index.js
 ```
 
 ### Serve Frontend static bundle:
-Deploy `client/dist` to any static hosting provider (Vercel, Cloudflare Pages, AWS S3 + CloudFront).
+Deploy `frontend/dist` to any static hosting provider (Vercel, Cloudflare Pages, AWS S3 + CloudFront).
 
 ---
 

@@ -84,14 +84,42 @@ PORT=4000
 WEB_URL=http://localhost:5173
 ```
 
-### 3. Install Dependencies
-```bash
-npm install
-npm install --prefix server
-npm install --prefix client
+### 3. Repository Structure
+```
+memora/
+├── frontend/               # React 19 + TypeScript + Vite + Tailwind CSS
+│   ├── src/
+│   │   ├── components/     # Navbar, Layout, Badges
+│   │   ├── pages/          # Dashboard, Incidents, Workspace, Memory
+│   │   ├── services/       # API client & Proxy integration
+│   │   └── types/          # Frontend domain types
+│   ├── vite.config.ts
+│   └── package.json
+├── backend/                # Node.js + Express + TypeScript API Server
+│   ├── src/
+│   │   ├── config/         # Environment loader with Zod validation
+│   │   ├── db/             # Supabase client + seeded database store
+│   │   ├── middleware/     # Error handler & Zod validation
+│   │   ├── routes/         # Health, Incidents, Runbooks, Memory
+│   │   ├── services/       # Hindsight client SDK & Investigation Agent
+│   │   └── tests/          # Automated test suites (6/6 passing)
+│   ├── tsconfig.json
+│   └── package.json
+├── database/               # SQL schema and seed files
+├── docs/                   # Architecture, Demo guides, and visual assets
+├── article.md              # Technical deep-dive article
+├── docker-compose.yml      # Container orchestration
+└── Dockerfile              # Multi-stage production build
 ```
 
-### 4. Run Development Servers
+### 4. Install Dependencies
+```bash
+npm install
+npm install --prefix backend
+npm install --prefix frontend
+```
+
+### 5. Run Development Servers
 ```bash
 npm run dev
 ```

@@ -5,20 +5,20 @@ WORKDIR /app
 
 # Copy root and workspace package files
 COPY package.json package-lock.json ./
-COPY server/package.json server/tsconfig.json ./server/
-COPY client/package.json client/tsconfig.json client/tsconfig.app.json client/tsconfig.node.json client/vite.config.ts client/index.html ./client/
+COPY backend/package.json backend/tsconfig.json ./backend/
+COPY frontend/package.json frontend/tsconfig.json frontend/tsconfig.app.json frontend/tsconfig.node.json frontend/vite.config.ts frontend/index.html ./frontend/
 
 # Install dependencies
 RUN npm install
-RUN npm install --prefix server
-RUN npm install --prefix client
+RUN npm install --prefix backend
+RUN npm install --prefix frontend
 
 # Copy source files
-COPY server/src ./server/src
-COPY client/src ./client/src
-COPY client/public ./client/public 2>/dev/null || true
+COPY backend/src ./backend/src
+COPY frontend/src ./frontend/src
+COPY frontend/public ./frontend/public 2>/dev/null || true
 
-# Build server and client
+# Build backend and frontend
 RUN npm run build
 
 # Production runtime image
@@ -28,11 +28,11 @@ WORKDIR /app
 ENV NODE_ENV=production
 
 COPY package.json ./
-COPY server/package.json ./server/
-COPY --from=builder /app/server/dist ./server/dist
-COPY --from=builder /app/server/node_modules ./server/node_modules
-COPY --from=builder /app/client/dist ./client/dist
+COPY backend/package.json ./backend/
+COPY --from=builder /app/backend/dist ./backend/dist
+COPY --from=builder /app/backend/node_modules ./backend/node_modules
+COPY --from=builder /app/frontend/dist ./frontend/dist
 
 EXPOSE 4000
 
-CMD ["node", "server/dist/index.js"]
+CMD ["node", "backend/dist/index.js"]
