@@ -7,11 +7,16 @@ import { runbooksRouter } from './routes/runbooks.js';
 import { memoryRouter } from './routes/memory.js';
 import { errorHandler } from './middleware/errorHandler.js';
 
+import path from 'path';
+import fs from 'fs';
+
 const app = express();
+
+const currentDir = typeof __dirname !== 'undefined' ? __dirname : process.cwd();
 
 // Middleware
 app.use(cors({
-  origin: [env.WEB_URL, 'http://localhost:5173', 'http://127.0.0.1:5173'],
+  origin: true,
   credentials: true
 }));
 app.use(express.json());
@@ -22,10 +27,32 @@ app.use('/api/incidents', incidentsRouter);
 app.use('/api/runbooks', runbooksRouter);
 app.use('/api/memory', memoryRouter);
 
-// 404 Fallback
-app.use((_req, res) => {
-  res.status(404).json({ error: 'Endpoint not found' });
+// API 404 Fallback
+app.use('/api/*', (_req, res) => {
+  res.status(404).json({ error: 'API endpoint not found' });
 });
+
+// Static frontend serving (for unified Render / single-container deployment)
+const candidateDistPaths = [
+  path.resolve(currentDir, '../../frontend/dist'),
+  path.resolve(currentDir, '../frontend/dist'),
+  path.resolve(process.cwd(), 'frontend/dist'),
+  path.resolve(process.cwd(), 'dist')
+];
+const frontendDist = candidateDistPaths.find((p) => fs.existsSync(p));
+
+if (frontendDist) {
+  console.log(`[Frontend] Serving static production build from ${frontendDist}`);
+  app.use(express.static(frontendDist));
+  app.get('*', (_req, res) => {
+    res.sendFile(path.join(frontendDist, 'index.html'));
+  });
+} else {
+  // 404 Fallback when frontend build is not present
+  app.use((_req, res) => {
+    res.status(404).json({ error: 'Endpoint not found' });
+  });
+}
 
 // Global error handler
 app.use(errorHandler);

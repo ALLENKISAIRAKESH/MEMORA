@@ -74,33 +74,43 @@ NODE_ENV=production
 
 ---
 
-## 4. Production Build & Execution
+---
 
-### Build from source:
-```bash
-npm install
-npm run build
-```
+## 4. Deploying to Render (Recommended - 1 Click & Free Tier)
 
-### Start API in production:
-```bash
-cd backend
-NODE_ENV=production node dist/index.js
-```
+Memora is configured as a unified full-stack application that builds both backend and frontend together, serving the React UI and Express API on a single Render URL with zero CORS configuration.
 
-### Serve Frontend static bundle:
-Deploy `frontend/dist` to any static hosting provider (Vercel, Cloudflare Pages, AWS S3 + CloudFront).
+### Steps on Render:
+1. Log in to [render.com](https://dashboard.render.com).
+2. Click **New +** > **Web Service**.
+3. Connect your GitHub repository: `ALLENKISAIRAKESH/MEMORA`.
+4. Configure the service settings:
+   - **Name**: `memora-sre` (or any name you like)
+   - **Language / Runtime**: `Node`
+   - **Branch**: `main`
+   - **Region**: `Oregon (US West)` or nearest
+   - **Build Command**: `npm install && npm run build`
+   - **Start Command**: `npm start`
+   - **Instance Type**: `Free`
+5. Click **Advanced** > **Add Environment Variable**:
+   - `NODE_ENV` = `production`
+   - `HINDSIGHT_API_KEY` = `your_hindsight_api_key` *(optional, falls back gracefully if not set)*
+   - `HINDSIGHT_API_URL` = `https://api.hindsight.vectorize.io`
+   - `HINDSIGHT_BANK_ID` = `memora-ops`
+   - `LLM_API_KEY` = `your_groq_api_key` *(optional)*
+   - `SUPABASE_URL` = `your_supabase_url` *(optional, uses active local store if not set)*
+   - `SUPABASE_ANON_KEY` = `your_anon_key` *(optional)*
+   - *(Note: Render automatically injects `PORT`)*
+6. Click **Deploy Web Service**!
+
+Render will install dependencies, build both frontend and backend, and provide you with a live HTTPS URL (e.g. `https://memora-sre.onrender.com`).
 
 ---
 
-## 5. Docker Deployment
+## 5. Alternative: Deploying via Docker on Render
 
-A production `Dockerfile` and `docker-compose.yml` are provided in the repository root:
-
-```bash
-# Build and run the entire stack
-docker compose up -d --build
-```
-Memora will be accessible at:
-- Web: `http://localhost:5173`
-- API: `http://localhost:4000`
+If you prefer containerized deployment, select **Docker** as the runtime instead of Node on Render:
+- **Runtime**: `Docker`
+- **Dockerfile Path**: `./Dockerfile`
+- **Docker Context**: `.`
+Render will automatically build the multi-stage Docker image and start the container on port 4000/10000.
