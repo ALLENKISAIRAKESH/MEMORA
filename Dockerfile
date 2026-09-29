@@ -33,6 +33,7 @@ COPY --from=builder /app/backend/dist ./backend/dist
 COPY --from=builder /app/backend/node_modules ./backend/node_modules
 COPY --from=builder /app/frontend/dist ./frontend/dist
 
-EXPOSE 4000
+ENV PORT=10000
+EXPOSE 10000 4000
 
 CMD ["node", "backend/dist/index.js"]
