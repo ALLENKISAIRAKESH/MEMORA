@@ -11,7 +11,7 @@ Production incidents frequently recur, but operational knowledge remains fragmen
 
 ---
 
-## ⚡ The Operational Memory Loop
+##  The Operational Memory Loop
 
 ```
   Incident Ingest
